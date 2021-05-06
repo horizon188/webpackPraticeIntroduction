@@ -18,13 +18,17 @@ module.exports = {
         port:"8082",//设置默认监听端口，如果省略，默认为”8080“
         historyApiFallback: true,//不跳转，在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
         inline: true,//是否实时刷新
-        hot: true,
     },
     module: {
         rules: [{
             test: /(\.jsx|\.js)$/,
             use: {
-                loader: "babel-loader"
+                loader: "babel-loader",
+                options: {
+                  presets: [
+                      "es2015", "react"
+                  ]
+              }
             },
             exclude: /node_modules/
         },  {
