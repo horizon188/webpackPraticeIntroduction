@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HappyPack = require('happypack')
+const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -28,7 +30,11 @@ module.exports = {
     filename: "css/common.css"
   }),
   new CleanWebpackPlugin(),
-
+  new CopyWebpackPlugin({
+    patterns: [
+      { from: path.resolve(__dirname, './src/assets'), to: 'assets' },
+    ],
+  }),
   // new webpack.HotModuleReplacementPlugin()//热加载插件
 ],
   module: {
@@ -65,7 +71,15 @@ module.exports = {
               },
             },
           },
+          
         ],
-      },]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader'
+        ]
+      }
+    ]
   }
 }
