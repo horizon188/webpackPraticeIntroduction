@@ -14,4 +14,13 @@
 
 # 3.css样式图片打包后路径有问题
 
+# 解决思路：涉及css打包问题，看css打包的loader，发现MiniCssExtractPlugin提取样式的时候加了css/开头
+- new MiniCssExtractPlugin({
+-  filename: "css/common.css"
+- })
+# 改为
+-  new MiniCssExtractPlugin({
+-    filename: '[name].[contenthash:16].css',
+-    chunkFilename: '[name].[contenthash:16].css',
+-  })
 

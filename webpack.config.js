@@ -11,7 +11,8 @@ module.exports = {
   devtool: 'eval-source-map',
   entry:  __dirname + "/src/main.js",//唯一入口文件
   output: {
-    path: __dirname + "/dist",//打包后的文件存放的地方
+    path: __dirname + "/dist",//打包后的文件存放的地方、
+    publicPath: "",
     filename: "bundle.js"//打包后输出文件的文件名
   },
   devServer: {
@@ -27,7 +28,8 @@ module.exports = {
       template: __dirname + "/index.tmpl.html"//new 一个这个插件的实例，并传入相关的参数
   }),
   new MiniCssExtractPlugin({
-    filename: "css/common.css"
+    filename: '[name].[contenthash:16].css',
+    chunkFilename: '[name].[contenthash:16].css',
   }),
   new CleanWebpackPlugin(),
   new CopyWebpackPlugin({
@@ -59,6 +61,7 @@ module.exports = {
               modules: {
                 namedExport: true,
               },
+              // publicPath: './',
             },
           },
           {
@@ -77,7 +80,12 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
-          'file-loader'
+          { 
+            loader: 'file-loader',
+            options: {
+              // name: '[path][name].[ext]?[hash]'
+            }
+          }
         ]
       }
     ]

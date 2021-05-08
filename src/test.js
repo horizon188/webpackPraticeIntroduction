@@ -7,7 +7,7 @@ console.log('styles',styles,JSON.stringify(styles))
 class TestCon extends Component{
     render() {
         return (<div className={styles.root}>
-        <img src={img}></img>
+        {/* <img src={img}></img> */}
         {111+config.testText}</div>);
     } 
 }
