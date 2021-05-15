@@ -1,10 +1,18 @@
 /* test.css */
+@font-face {
+  font-family: "MyFont";
+  src: url("./../static/iconfont/iconfont.woff2") format("woff2"),
+    url("./../static/iconfont/iconfont.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
 .root {
   background-color: red;
   padding: 10px;
   border: 1px solid #999;
-  background-image: url('./assets/image/1.png');
+  /* background-image: url("./assets/image/1.png"); */
+  background-repeat: no-repeat;
   background-size: 200px;
-    width: 200px;
-    height: 200px;
+  width: 200px;
+  height: 200px;
 }
