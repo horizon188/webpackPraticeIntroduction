@@ -3,13 +3,17 @@ import React, { Component } from "react";
 import config from "./config.json";
 import styles from "./test.css"; //导入
 import img from "./assets/image/1.png";
-import { square } from "./print.js";
+// import Print from "./print.js";
 console.log("styles", styles, JSON.stringify(styles));
 class TestCon extends Component {
   constructor() {
     super();
-    square();
   }
+  // handleClick(e) {
+  //   // console.log("Print", Print);
+  //   Print("kk");
+  //   Print("kk");
+  // }
   render() {
     return (
       <div className={styles.root}>

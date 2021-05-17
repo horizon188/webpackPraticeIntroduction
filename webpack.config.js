@@ -16,7 +16,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 let build = JSON.stringify(process.env.NODE_ENV);
 module.exports = {
-  mode: "production",
+  // mode: "production",
   devtool: "eval-source-map",
   entry: __dirname + "/src/main.js", //唯一入口文件,
 
@@ -24,7 +24,7 @@ module.exports = {
     path: __dirname + "/dist", //打包后的文件存放的地方、
     publicPath: "/",
     chunkFilename: "[name].bundle.js",
-    filename: "[name].bundle.js", //打包后输出文件的文件名
+    filename: "[name].[contenthash].bundle.js", //打包后输出文件的文件名
   },
   plugins: [
     new webpack.BannerPlugin("版权所有，翻版必究"),
@@ -57,7 +57,7 @@ module.exports = {
     runtimeChunk: {
       name: (entryPoint) => `runtime~${entryPoint.name}`,
     },
-    moduleIds: "hashed",
+    moduleIds: "deterministic",
     splitChunks: {
       chunks: "all",
       // minSize: 30000,
