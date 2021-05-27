@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env-shell ENV=prod NODE_ENV=production webpack serve --open --color --progress --hot ",
     "dev-build": "cross-env-shell ENV=prod NODE_ENV=production webpack",
-    "test-build": "cross-env-shell ENV=prod NODE_ENV=production webpack --config ./old_webpack.config.js",
+    "dll-build": "cross-env-shell ENV=prod NODE_ENV=production webpack --config ./webpack.config.dll.js",
     "server": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pro": "webpack serve --open  --config ./webpack.production.config.js ",
@@ -50,5 +50,5 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
-  "sideEffects": false
+  "sideEffects": true
 }

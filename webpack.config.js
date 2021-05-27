@@ -16,7 +16,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 let build = JSON.stringify(process.env.NODE_ENV);
 module.exports = {
-  // mode: "production",
+  mode: "development",
   devtool: "eval-source-map",
   entry: __dirname + "/src/main.js", //唯一入口文件,
 
@@ -57,15 +57,20 @@ module.exports = {
     runtimeChunk: {
       name: (entryPoint) => `runtime~${entryPoint.name}`,
     },
-    moduleIds: "deterministic",
+    moduleIds: "deterministic", // 我们期望的是，只有 main bundle 的 hash 发生变化，然而vendor文件名也随着改变。
+    chunkIds: "deterministic",
+    usedExports: true, //无效， 在压缩工具中的无用代码清除会受益于该选项，而且能够去除未使用的导出内容。
+    sideEffects: true, //无效， 告知 webpack 去辨识 package.json 中的 副作用 标记或规则，以跳过那些当导出不被使用且被标记不包含副作用的模块。
+    removeEmptyChunks: false, // 如果 chunk 为空，告知 webpack 检测或移除这些 chunk。
+    providedExports:true,
     splitChunks: {
-      chunks: "all",
-      // minSize: 30000,
-      // minChunks: 2,
-      // maxAsyncRequests: 5,
-      // maxInitialRequests: 3,
-      // automaticNameDelimiter: '~',
-      // name: true,
+      chunks: 'all',
+      minSize: 20000, // 生成 chunk 的最小体积,单位1kb = 1024B（bytes）
+      minRemainingSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 30,
+      maxInitialRequests: 30,
+      enforceSizeThreshold: 50000,
       cacheGroups: {
         libs: {
           name: "chunk-libs",
