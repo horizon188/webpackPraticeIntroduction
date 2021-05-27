@@ -18,7 +18,7 @@ let build = JSON.stringify(process.env.NODE_ENV);
 module.exports = {
   mode: "development",
   devtool: "eval-source-map",
-  entry: __dirname + "/src/main.js", //唯一入口文件,
+  entry: __dirname + "/src/index.js", //唯一入口文件,
 
   output: {
     path: __dirname + "/dist", //打包后的文件存放的地方、
@@ -169,6 +169,14 @@ module.exports = {
         ],
       },
     ],
+  },
+  resolve:{
+    alias:{
+      '@': path.join(__dirname, '/src'),
+      '@static': path.join(__dirname, '/static'),
+      '@pages': path.join(__dirname, '/src/pages'),
+      
+    }
   },
   devServer: {
     contentBase: "./dist", //设置本地服务器所加载的页面所在的目录

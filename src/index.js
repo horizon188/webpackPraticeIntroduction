@@ -1,23 +1,9 @@
-import _ from "lodash";
-import numRef from "./ref.json";
+// main.js
+__webpack_nonce__ = "c29tZSBjb29sIHN0cmluZyB3aWxsIHBvcCB1cCAxMjM=";
+import React,{Component} from "react";
+import { render } from "react-dom";
+// import { render } from "react-router-dom";
+import App from "@/pages/App/App.js";
+import "@/assets/css/index.css";
 
-export function numToWord(num) {
-  return _.reduce(
-    numRef,
-    (accum, ref) => {
-      return ref.num === num ? ref.word : accum;
-    },
-    ""
-  );
-}
-
-export function wordToNum(word) {
-  return _.reduce(
-    numRef,
-    (accum, ref) => {
-      return ref.word === word && word.toLowerCase() ? ref.num : accum;
-    },
-    -1
-  );
-}
-Webpa;
+render(<App />, document.getElementById("root"));
