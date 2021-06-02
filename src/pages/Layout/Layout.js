@@ -35,18 +35,16 @@ class TestCon extends Component {
 
   handleClick(e) {
     // console.log("Print", Print);
-    console.log(21, cube(23));
+    console.log(21, cube(23),'你好信息');
   }
   render() {
     return (
       <div className={styles.root} onClick={() => this.draw()}>
         {/* <img src={img}></img> */}
-        <div>布局页</div>
+        <div>布局页-修改</div>
+        <div>布局页-新增</div>
         <canvas id="canvas"></canvas>
 
-        {typeof process.env.NODE_ENV}
-        {typeof NODE_ENV}
-        {config.testText + 11}
       </div>
     );
   }
