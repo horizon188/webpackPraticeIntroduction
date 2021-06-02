@@ -9,6 +9,7 @@ const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const ParallelUglifyPlugin = require("webpack-parallel-uglify-plugin");
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 console.log(process.env.NODE_ENV, "当前环境");
 if (process.env.NODE_ENV !== "production") {
@@ -47,6 +48,12 @@ module.exports = {
     new webpack.DefinePlugin({
       NODE_ENV: build,
     }),
+    // new WorkboxPlugin.GenerateSW({
+    //   // 这些选项帮助快速启用 ServiceWorkers
+    //   // 不允许遗留任何“旧的” ServiceWorkers
+    //   clientsClaim: true,
+    //   skipWaiting: true,
+    // }),
     // new UglifyJSPlugin(), // 不知道怎么其他已经开启js压缩了
     // new OptimizeCssAssetsPlugin(),
   ],
@@ -171,6 +178,7 @@ module.exports = {
     ],
   },
   resolve:{
+    extensions: [".js", ".json", ".jsx", ".css"],
     alias:{
       '@': path.join(__dirname, '/src'),
       '@static': path.join(__dirname, '/static'),
@@ -180,7 +188,7 @@ module.exports = {
   },
   devServer: {
     contentBase: "./dist", //设置本地服务器所加载的页面所在的目录
-    port: "8082", //设置默认监听端口，如果省略，默认为”8080“
+    port: "8082", //设置默认监听端口，如果省略，默认为”8082“
     historyApiFallback: true, //不跳转，在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
     inline: true, //是否实时刷新,HMR??去掉了也能实时更新
     hot: true, // ,HMR??去掉了也能实时更新
