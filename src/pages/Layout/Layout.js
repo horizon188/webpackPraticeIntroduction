@@ -35,7 +35,7 @@ class TestCon extends Component {
 
   handleClick(e) {
     // console.log("Print", Print);
-    console.log(21, cube(23));
+    console.log(21, cube(23),'你好信息');
   }
   render() {
     return (
