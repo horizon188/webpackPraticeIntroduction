@@ -44,7 +44,7 @@ class TestCon extends Component {
         <div>布局页-修改</div>
         <div>布局页-新增</div>
         <canvas id="canvas"></canvas>
-
+        
       </div>
     );
   }
