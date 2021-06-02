@@ -41,12 +41,10 @@ class TestCon extends Component {
     return (
       <div className={styles.root} onClick={() => this.draw()}>
         {/* <img src={img}></img> */}
-        <div>布局页</div>
+        <div>布局页-修改</div>
+        <div>布局页-新增</div>
         <canvas id="canvas"></canvas>
 
-        {typeof process.env.NODE_ENV}
-        {typeof NODE_ENV}
-        {config.testText + 11}
       </div>
     );
   }
