@@ -7,7 +7,7 @@ class TestCon extends Component {
   constructor() {
     super();
     this.state = {
-      tableList: [1],
+      tableList: [],
     };
   }
   componentDidMount() {
@@ -27,6 +27,7 @@ class TestCon extends Component {
   }
 
   render() {
+    let { tableList } = this.state
     const columns = [
       {
         title: "Name",
@@ -68,41 +69,18 @@ class TestCon extends Component {
       {
         title: "Action",
         key: "action",
-        // render: (text, record) => (
-        //   <Space size="middle">
-        //     <a>Invite {record.name}</a>
-        //     <a>Delete</a>
-        //   </Space>
-        // ),
+        render: (text, record) => (
+          <Space size="middle">
+            <a>detail</a>
+            <a>Delete</a>
+          </Space>
+        ),
       },
     ];
-
-    const data = [
-      {
-        key: "1",
-        name: "John Brown",
-        age: 32,
-        address: "New York No. 1 Lake Park",
-        tags: ["nice", "developer"],
-      },
-      {
-        key: "2",
-        name: "Jim Green",
-        age: 42,
-        address: "London No. 1 Lake Park",
-        tags: ["loser"],
-      },
-      {
-        key: "3",
-        name: "Joe Black",
-        age: 32,
-        address: "Sidney No. 1 Lake Park",
-        tags: ["cool", "teacher"],
-      },
-    ];
+    console.log(tableList);
     return (
       <div className={styles.root}>
-        <Table rowKey="id" columns={columns} dataSource={this.state.tableList} />
+        <Table rowKey={record => record.key} columns={columns} dataSource={tableList} />
       </div>
     );
   }
