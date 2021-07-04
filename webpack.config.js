@@ -69,7 +69,7 @@ module.exports = {
     usedExports: true, //无效， 在压缩工具中的无用代码清除会受益于该选项，而且能够去除未使用的导出内容。
     sideEffects: true, //无效， 告知 webpack 去辨识 package.json 中的 副作用 标记或规则，以跳过那些当导出不被使用且被标记不包含副作用的模块。
     removeEmptyChunks: false, // 如果 chunk 为空，告知 webpack 检测或移除这些 chunk。
-    providedExports:true,
+    providedExports: true,
     splitChunks: {
       chunks: 'all',
       minSize: 20000, // 生成 chunk 的最小体积,单位1kb = 1024B（bytes）
@@ -177,13 +177,13 @@ module.exports = {
       },
     ],
   },
-  resolve:{
+  resolve: {
     extensions: [".js", ".json", ".jsx", ".css"],
-    alias:{
+    alias: {
       '@': path.join(__dirname, '/src'),
       '@static': path.join(__dirname, '/static'),
       '@pages': path.join(__dirname, '/src/pages'),
-      
+
     }
   },
   devServer: {
@@ -192,5 +192,29 @@ module.exports = {
     historyApiFallback: true, //不跳转，在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
     inline: true, //是否实时刷新,HMR??去掉了也能实时更新
     hot: true, // ,HMR??去掉了也能实时更新
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    proxy: {
+      // 这里配置 '/api' 就等价于 target , 你在链接里访问 /api === http://localhost:54321
+      '/users': {
+        // 真实服务器的接口地址 
+        target: "http://192.168.31.196:3000", // + "/t/" + process.env.VUE_APP_TENANT_CODE + "/api",  
+        // secure: false, // 如果是 https ,需要开启这个选项
+        changeOrigin: true, // 是否是跨域请求?肯定是啊,不跨域就没有必要配置这个proxyTable了.
+        ws: true,
+        pathRewirte: {
+          '/users': '',
+        }
+      },
+      "/users/": {
+        target: "http://192.168.31.196:3000",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/users": ""
+        }
+      },
+
+    },
   },
 };
