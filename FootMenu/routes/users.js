@@ -17,7 +17,7 @@ connection.connect(function (err) {
     return;
   }
 
-  console.log('connected as id ' + connection.threadId);
+  console.log('数据库连接成功 ' + connection.threadId);
 });
 
 
@@ -44,6 +44,83 @@ router.get('/getCity', (req, res, next) => {
 
     }
   })
+})
+
+router.post('/menu/add', (req, res, next) => {
+  // var params = Url.parse(req.url, true).query;
+  let response = {
+    data: {},
+    code: 200,
+    message: '成功'
+  };
+  console.log("res",req.body);
+
+  var addSql = 'INSERT INTO foot_list(name,pic,flavor) VALUES(?,?,?)';
+  var addSqlParams = [req.body.name, req.body.pic, req.body.flavor];
+  //增
+  connection.query(addSql, addSqlParams, function (err, result) {
+    if (err) {
+      console.log('[INSERT ERROR] - ', err.message);
+      return;
+    }
+    console.log('result', result);
+  });
+
+  res.json(response);
+
+})
+
+router.post('/menu/edit', (req, res, next) => {
+  // var params = Url.parse(req.url, true).query;
+  let response = {
+    data: {},
+    code: 200,
+    message: '成功'
+  };
+  console.log("res",req.body);
+
+  var modSql = 'UPDATE foot_list SET name = ?,pic = ?,flavor = ? WHERE key = ?';
+var modSqlParams = [req.body.name, req.body.pic,req.body.flavor,req.body.key];
+//改
+connection.query(modSql,modSqlParams,function (err, result) {
+   if(err){
+         console.log('[UPDATE ERROR] - ',err.message);
+         return;
+   }        
+  console.log('--------------------------UPDATE----------------------------');
+  console.log('UPDATE affectedRows',result.affectedRows);
+  console.log('-----------------------------------------------------------------\n\n');
+});
+
+  res.json(response);
+
+})
+
+router.delete('/menu/delete', (req, res, next) => {
+  // var params = Url.parse(req.url, true).query;
+  let response = {
+    data: {},
+    code: 200,
+    message: '成功'
+  };
+
+  let delSql = `DELETE FROM foot_list where key=${req.body.key}`;
+  console.log("delSql",delSql);
+
+//删
+connection.query(delSql,function (err, result) {
+        if(err){
+          console.log('[DELETE ERROR] - ',err.message);
+          return;
+        }        
+ 
+       console.log('--------------------------DELETE----------------------------');
+       console.log('DELETE affectedRows',result.affectedRows);
+       console.log('-----------------------------------------------------------------\n\n');  
+});
+
+  res.json(response);
+
 })
 router.get('/secret', function (req, res, next) {
   console.log('Accessing the secret section ...')

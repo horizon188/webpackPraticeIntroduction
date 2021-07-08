@@ -16,7 +16,7 @@ instance.interceptors.request.use(
     // 在发送请求之前做些什么
     config.responseType = "json";
     const method = config.method.toLowerCase();
-    if (["post", "put"].every((m) => method !== m)) {
+    if (["post", "put","delete"].every((m) => method !== m)) {
       config.params = config.data;
     }
     return config;

@@ -7,4 +7,19 @@ const getSpeTypeList = function () {
   });
 };
 
-export default { getSpeTypeList };
+const addMenu = function (params) {
+  return request({
+    url: `/users/menu/add`,
+    method: "post",
+    data:params
+  });
+};
+const deleteMenu = function (params) {
+  return request({
+    url: `/users/menu/delete`,
+    method: "delete",
+    data:params
+  });
+};
+
+export default { getSpeTypeList ,addMenu,deleteMenu};

@@ -42,6 +42,21 @@ class TestCon extends Component {
       });
     }
   }
+  async addMenu(param) {
+    let params={
+      name:param.name,
+      flavor:param.flavor,
+      pic:'https://alifile.hqjy.com/hq/classfile/2021-6-2/08fa60d0-d631-420d-b55e-eecdc81b92efvSVsHsK-g98BQkoFuEd5QogAAAAAAAAAAQ.jpg'
+    }
+    let res = await Serv.addMenu(params);
+
+    if ("" + res.code === "200") {
+      this.getTableList();
+      this.setState({
+        isModalVisible: false
+      })
+    }
+  }
   onClose(record) {
     let obj = {
       visible: !this.state.visible,
@@ -61,6 +76,16 @@ class TestCon extends Component {
       this.setState({
         visible: !this.state.visible,
       });
+    }
+  }
+  async delete(record) {
+    let params={
+      key:record.key,
+    }
+    let res = await Serv.deleteMenu(params);
+
+    if ("" + res.code === "200") {
+      this.getTableList();
     }
   }
 
@@ -109,9 +134,11 @@ class TestCon extends Component {
                 this.onClose(record);
               }}
             >
-              detail
+            编辑
             </a>
-            <a>Delete</a>
+            <a  onClick={() => {
+                this.delete(record);
+              }}>删除</a>
           </Space>
         ),
       },
@@ -140,7 +167,14 @@ class TestCon extends Component {
 
     };
 
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
+      try {
+      let res = await this.addMenu(values)
+       
+      } catch (error) {
+        
+      }
+
       console.log(values);
     };
 
@@ -165,6 +199,7 @@ class TestCon extends Component {
           placement="right"
           width={750}
           closable={false}
+          destroyOnClose={true}
           onClick={() => {
             this.onClose();
           }}
@@ -185,7 +220,7 @@ class TestCon extends Component {
         <Modal title="新增" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
           <Form {...layout} name="control-hooks" onFinish={onFinish}>
             <Form.Item
-              name="note"
+              name="name"
               label="Name"
               rules={[
                 {
@@ -196,7 +231,7 @@ class TestCon extends Component {
               <Input />
             </Form.Item>
             <Form.Item
-              name="gender"
+              name="flavor"
               label="口味"
               rules={[
                 {

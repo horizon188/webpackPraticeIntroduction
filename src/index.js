@@ -5,7 +5,7 @@ import { render } from "react-dom";
 // import { render } from "react-router-dom";
 import App from "@/pages/App/App.js";
 import "@/assets/css/index.css";
-
+import 'antd/dist/antd.css';
 // if ('serviceWorker' in navigator) {
 //   window.addEventListener('load', () => {
 //     navigator.serviceWorker.register('/service-worker.js').then(registration => {
